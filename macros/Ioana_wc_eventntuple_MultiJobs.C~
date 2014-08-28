@@ -42,7 +42,7 @@ void Ioana_wc_eventntuple_MultiJobs(std::string inputFile, std::string type, std
   WCSimInterface::SetToUseTrueHits();
   //WCSimInterface::Instance()->UsePMTPosition();
   WCSimInterface::Instance()->SmearTrueHits(0.25);//Erika isChanging this 
-  WCSimDataCleaner::Instance()->NeighbourRadius(300.0); // orig 300 c 250
+  WCSimDataCleaner::Instance()->NeighbourRadius(400.0); // orig 300 c 250
   WCSimDataCleaner::Instance()->NeighbourDigits(10.0);//orig 50 c 40
   //WCSimDataCleaner::Instance()->TimeWindow(25.0);
   WCSimDataCleaner::Instance()->SetMinPulseHeight(-1.0);

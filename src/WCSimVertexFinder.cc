@@ -2773,10 +2773,12 @@ void WCSimVertexFinder::TimePropertiesLnLchrom(Double_t vtxTime, Double_t vtxPar
   Double_t fom = 0.0;         // figure of merit
   
   //parameters for PLmuon function  //erika change the cut 500 t0 300 softcutofflatecut 
+
+  //1.2 GeV muon earlycut 0 softcut  500
   Double_t Norm       = 10.0;
   Double_t softcutoff = 350.0;//80 400MeV muon, 500 1.2GeV muon
   Double_t earlysigma = 2.0/sqrt(Norm); // P(l=-20cm)=0.01
-  Double_t earlycut   = 0; //2.0*earlysigma; 
+  Double_t earlycut   = -20.; //2.0*earlysigma; 
   Double_t latesigma  = 5.0; latesigma = 25.0/(10.0*sqrt(Norm)); // P(l=525cm)=0.01
   Double_t latecut    = softcutoff+25.0;
   Double_t normF      = 1.0/((earlysigma+latesigma)*(TMath::Pi()/2.0)+softcutoff);

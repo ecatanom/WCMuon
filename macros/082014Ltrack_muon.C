@@ -189,9 +189,9 @@
   //works for 1.2 GeV muon
   
   Double_t Norm       = 10.0;
-  Double_t softcutoff = 500.0;//80 400MeV muon, 500 1.2GeV muon 350 
+  Double_t softcutoff = 350.0;//80 400MeV muon, 500 1.2GeV muon 350 
   Double_t earlysigma = 2.0/sqrt(Norm); // P(l=-20cm)=0.01
-  Double_t earlycut   = 0; //2.0*earlysigma; 
+  Double_t earlycut   = -20; //2.0*earlysigma; 
   Double_t latesigma  = 5.0; latesigma = 25.0/(10.0*sqrt(Norm)); // P(l=525cm)=0.01
   Double_t latecut    = softcutoff+25.0;
   Double_t normF      = 1.0/((earlysigma+latesigma)*(TMath::Pi()/2.0)+softcutoff);
@@ -233,10 +233,10 @@
   hltrackmc->SetLineColor(kRed);
   hltrackmc->SetLineWidth(2);
    hltrackmc->Draw("same");
-  
+   /* 
   TFile myFile("muplusLtrackZoom.root","update");
   hltrackdataall->Write("1200MeV200ktonLtrack");
-  hltrackmc->Write("1200MeV200ktonLtrackPDFA");
+  hltrackmc->Write("1200MeV200ktonLtrackPDFA");*/
   /*
  
   //PDF only

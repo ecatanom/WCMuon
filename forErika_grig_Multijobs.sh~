@@ -66,7 +66,7 @@ do {
  echo '${CPN} ${_CONDOR_SCRATCH_DIR}/output/'"$outFile"' /lbne/data2/users/ecatanom/042214_muon400_200kton_13per_025ns/' >> $jobcmd
 
     chmod a+rwx $jobcmd
-    jobsub --use_gftp -q -g --opportunistic $jobcmd
+    jobsub --use_gftp -q -g --opportunistic  $jobcmd
     
   } done 
 } done

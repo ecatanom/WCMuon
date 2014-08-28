@@ -15,9 +15,8 @@
   
   // Load Data
   // =========
-   TString filename("/lbne/data2/users/txin/Samples/muplus_400mev_50kton_10inch_13per_hqe_MuSct.root");
-  //TString filename("/lbne/data2/users/txin/Samples/eminus_400mev_200kton_10inch_13per_hqe_MuSct.root");
-  //TString filename("/lbne/data2/users/txin/Samples/eminus_400mev_50kton_10inch_13per_hqe_MuSct.root");
+   TString filename("/lbne/data2/users/txin/Samples/muplus_1200mev_200kton_10inch_13per_hqe_MuSct.root");
+ 
   WCSimInterface::LoadData(filename);
 
   // get first entry
@@ -29,8 +28,8 @@
     WCSimInterface::Instance()->SmearTrueHits(sigma0); //Smear sigma0=1ns, we are talking about MCP
   }
   WCSimDataCleaner::Instance()->SetMinPulseHeight(-1.0);//there's no cut
-  WCSimDataCleaner::Instance()->SetNeighbourRadius(220.0); //cm
-  WCSimDataCleaner::Instance()->SetNeighbourDigits(10.0);//number of neighb
+  WCSimDataCleaner::Instance()->SetNeighbourRadius(300.0); //cm
+  WCSimDataCleaner::Instance()->SetNeighbourDigits(50.0);//number of neighb
   WCSimDataCleaner::Instance()->SetClusterRadius(300.0);
   WCSimDataCleaner::Instance()->SetClusterDigits(50.0);//at least 50 clusters
   WCSimDataCleaner::Instance()->SetTimeWindowNeighbours(25.0);//ns window
@@ -50,11 +49,11 @@
     double mind = 1500.0;
     double maxd = 5500.0;
   }
-  double mindmu = -1000.0;//dist muon
-  double maxdmu = 1000.0;
+  double mindmu = -200.0;//dist muon
+  double maxdmu = 800.0;
   TH1D* hltrackdata = new TH1D("hltrackdata", ";Ltrack [cm]",100,mindmu,maxdmu);
   TH1D* hltrackdataall = new TH1D("hltrackdataall", ";Ltrack [cm]",100,mindmu,maxdmu);  //Ltrack only
-  //TH1D* hltrackdataall = new TH1D("hltrackdataall", ";Oangle [deg]",100,0,180); // Oamgle only
+  //TH1D* hltrackdataall = new TH1D("hltrackdataall", ";Oangle [deg]",100,0,60); // Oamgle only
  
  TH1D* hltrackmc = new TH1D("hltrackmc", "Ltrack [cm]",100,mindmu,maxdmu);
   Double_t TResid, LPhot, LMuon, Oangle;
@@ -114,7 +113,7 @@
    //     double Ptemp = pdf->MakeChromPeakPDF(TResid,LPhot,sigma0); 
    if(filtered) hltrackdata->Fill(LMuon); 
     hltrackdataall->Fill(LMuon); //Ltrack only
-   //hltrackdataall->Fill(Oangle); //Opening angle only
+   // hltrackdataall->Fill(Oangle); //Opening angle only
      ifilter++; 
      //} //loop of the filter
   } //loop over hits
@@ -155,7 +154,7 @@
   */
 //****************************************************************
   // PDFD
-
+  /*
 
   Double_t Norm       = 10.0;
   Double_t softcutoff = 200.0;//80 400MeV muon, 500 1.2GeV muon
@@ -184,13 +183,13 @@
  Double_t bias= hltrackdataall->GetBinContent(i);
  hltrackmc->SetBinContent(i,bias*PLmu);
   }
-
+  */
    //****************************************************************
   // PDFA MUON ORIGINAL FUNCTION FROM MY VERTEX FINDER
   //works for 1.2 GeV muon
-  /*
+  
   Double_t Norm       = 10.0;
-  Double_t softcutoff = 350.0;//80 400MeV muon, 500 1.2GeV muon
+  Double_t softcutoff = 500.0;//80 400MeV muon, 500 1.2GeV muon 350 
   Double_t earlysigma = 2.0/sqrt(Norm); // P(l=-20cm)=0.01
   Double_t earlycut   = 0; //2.0*earlysigma; 
   Double_t latesigma  = 5.0; latesigma = 25.0/(10.0*sqrt(Norm)); // P(l=525cm)=0.01
@@ -213,14 +212,15 @@
       Double_t bias= hltrackdataall->GetBinContent(i);
       hltrackmc->SetBinContent(i,bias*PLmu);
   }
-  */
+  
   //**************************
   
-  //hltrackdataall->SetTitle("1200 MeV 200 kton muon, PDFA, Biased");
-  hltrackdataall->SetTitle("400 MeV 50 kton muon, PDFC, Biased");
+  hltrackdataall->SetTitle("1200 MeV 200 kton muon");
+  hltrackmc->SetTitle("1200 MeV 200 kton muon, PDFA");
+  // hltrackdataall->SetTitle("400 MeV 50 kton muon, PDFC, Biased");
   
   //Oangle only
-  // hltrackdataall->SetTitle("400 MeV 50 kton muon, ALL");
+  // hltrackdataall->SetTitle("1200 MeV 200 kton muon, ALL");
   //hltrackdataall->SetTitle("1200 MeV 200 kton muon, ALL");
   
   TCanvas* ca1 = new TCanvas("ca1","ca1",500,300);
@@ -228,15 +228,15 @@
   hltrackdataall->SetLineWidth(2);
   hltrackdataall->Draw();
   //  hltrackdataall->SetLineColor(kBlue);
-  //  hltrackdataall->Draw("same");
+   
    hltrackmc->Scale((hltrackdataall->GetMaximum())/(hltrackmc->GetMaximum()));
-
-  
   hltrackmc->SetLineColor(kRed);
   hltrackmc->SetLineWidth(2);
-  hltrackmc->Draw("same");
+   hltrackmc->Draw("same");
   
-  
+  TFile myFile("muplusLtrackZoom.root","update");
+  hltrackdataall->Write("1200MeV200ktonLtrack");
+  hltrackmc->Write("1200MeV200ktonLtrackPDFA");
   /*
  
   //PDF only
@@ -246,15 +246,16 @@
  hltrackmc->SetLineWidth(2);
   hltrackmc->Draw();
   */
-  
+  /*
   //Oangle only  
-  /*  TLine l(42,-10000,42,1100000);
-     l.SetLineColor(kRed);
+  TLine l(42,-10000,42,1100000);
+  l.SetLineColor(kRed);
   l.SetLineWidth(2);
   l.SetLineStyle(2);
-  l.Draw("same");*/
-  
-  
+  l.Draw("same");
+  */
+  //TFile myFile("muplusOangle.root","update");
+  //hltrackdataall->Write("1200MeV200ktonOangle");
   
   // TString nameImage("400Ltrack");
   /* TString nameImage("400Oangle");

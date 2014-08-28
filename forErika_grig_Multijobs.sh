@@ -2,18 +2,18 @@
 
 umask 002 #Ensure that files are user and group writable by default
 
-source /lbne/app/users/ecatanom/WCSimAnalysis/setupWCSimAnalysis.sh
+source /lbne/app/users/ecatanom/muon2014/setupWCSimAnalysis.sh
 
 export DISPLAY=localhost0.0
-export OutDir=/lbne/data2/users/ecatanom/042214_muon400_200kton_13per_025ns
+export OutDir=/lbne/data2/users/ecatanom/082814_muplus400_50kton_01ns
 #export DataFilesDir=/lbne/data/water/sim200kton_20111017/singleparticle/wcsimlc
 #export DataFilesDir=/lbne/data/users/ecatanom/samples
 export DataFilesDir=/lbne/data2/users/txin/Samples
 
-export myrel=/lbne/app/users/ecatanom/WCSimAnalysis
+export myrel=/lbne/app/users/ecatanom/muon2014
 
 #for file in $( find $DataFilesDir -maxdepth 1  -name 'muon_plus_001200MeV_200kton.0001_13percentbare_DetDev_MuSct_Ion.root' |sort -r )
-for file in $( find $DataFilesDir -maxdepth 1  -name 'muplus_400mev_200kton_10inch_13per_hqe_MuSct.root' |sort -r )
+for file in $( find $DataFilesDir -maxdepth 1  -name 'muplus_400mev_50kton_10inch_13per_hqe_MuSct.root' |sort -r )
 do {
   for (( ii=1; ii<1000; ii++ ))
   #for ii in 117 207 216 282 35 340 333 31 313 34 445 440 56 543 695 684 626 61 747 832 829 855 976 967 949 913 930
@@ -56,14 +56,14 @@ do {
 
  #echo "root -b -q -l '/lbne/app/users/ecatanom/WCSimAnalysis/macros/Ioana_wc_eventntuple_MultiJobs.C(\"$DataFilesDir/$filename\",\"Reco\",\"$outFile\","$ii")'" >> $jobcmd 
 
- echo "root -b -q -l '/lbne/app/users/ecatanom/WCSimAnalysis/macros/Ioana_wc_eventntuple_MultiJobs.C(\"$filename\",\"Reco\",\"$outFile\","$ii")'" >> $jobcmd
+ echo "root -b -q -l '/lbne/app/users/ecatanom/muon2014/macros/Ioana_wc_eventntuple_MultiJobs.C(\"$filename\",\"Reco\",\"$outFile\","$ii")'" >> $jobcmd
 
 
 
 
 # moving and finally copying output file to your /nova/data area
  echo '$MVN ${_CONDOR_SCRATCH_DIR}/input/'"$outFile"' ${_CONDOR_SCRATCH_DIR}/output/'"$otFile" >> $jobcmd
- echo '${CPN} ${_CONDOR_SCRATCH_DIR}/output/'"$outFile"' /lbne/data2/users/ecatanom/042214_muon400_200kton_13per_025ns/' >> $jobcmd
+ echo '${CPN} ${_CONDOR_SCRATCH_DIR}/output/'"$outFile"' /lbne/data2/users/ecatanom/082814_muplus400_50kton_01ns/' >> $jobcmd
 
     chmod a+rwx $jobcmd
     jobsub --use_gftp -q -g --opportunistic  $jobcmd
