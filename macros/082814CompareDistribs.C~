@@ -1,0 +1,28 @@
+{
+  TFile myFile ("eminusOangle.root","read");
+  TH1D * h400M50 = (TH1D*) myFile.Get("400MeV50ktonOangle");
+  TH1D * h400M200 = (TH1D*) myFile.Get("400MeV200ktonOangle");
+  TH1D * h1200M200 = (TH1D*) myFile.Get("1200MeV200ktonOangle");
+
+  h400M50->SetLineColor(kRed);
+  h400M200->SetLineColor(kBlue);
+
+
+ gStyle->SetOptTitle(kFALSE);
+  TCanvas c1;
+  // h400M50->SetTitle("");
+  h400M50->DrawNormalized();
+  h400M200->DrawNormalized("same");
+ h1200M200->DrawNormalized("same");
+
+
+ leg = new TLegend(0.15,0.65,0.5,0.85);
+ leg->SetHeader("Compare Oangle");
+ leg->AddEntry(h400M50,"","l");
+ leg->AddEntry(h400M200,"","l");
+ leg->AddEntry(h1200M200,"","l");
+ //leg->AddEntry("f1","Function abs(#frac{sin(x)}{x})","l");
+ //leg->AddEntry("gr","Graph with error bars","lep");
+ leg->Draw("same");
+
+}
