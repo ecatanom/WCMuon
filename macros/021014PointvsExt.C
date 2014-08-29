@@ -22,11 +22,12 @@
   //string namefile = "addedFiles_electron_200kton_13percCov_0p25ns";
 
 
-  string namefile="042214_muon400_200kt0n_13per_025ns_nrad400";
-
+  //string namefile="042214_muon400_200kt0n_13per_025ns_nrad400";
+  string namefile="082814temp";
 
   Double_t radius = 4202.59; Double_t height = 10412.1/2; //500 kton
   radius = 3112.95; height = 7998.09/2; //200 kton
+radius=1908.34;height=6812.09/2; //50kton
   // True Quantities
   Int_t runNum;    Int_t eventNum;    Int_t triggerNum;
 

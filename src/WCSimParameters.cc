@@ -120,6 +120,7 @@ Double_t WCSimParameters::Index0()
 
 Double_t WCSimParameters::CherenkovAngle()
 {
+  return 40; //erika 082814
   //return (180.0/3.14)*(acos(30.0/(29.0*Index0())));
   return 42.0;  // degrees
   //return 43.56128448; // degree,...chrom1.38 index of refraction
@@ -129,6 +130,8 @@ Double_t WCSimParameters::CherenkovAngle()
 
 Double_t WCSimParameters::ThetaC()
 {
+
+  return 40; //erika 082814
   //return (180.0/3.14)*(acos(30.0/(29.0*Index0())));
   return 42.0;  // degrees
   //return 43.56128448; // degree,...chrom1.38 index of refraction
@@ -138,6 +141,8 @@ Double_t WCSimParameters::ThetaC()
 
 Double_t WCSimParameters::CosThetaC()
 {
+
+  return 0.76604444311;  //erika 082814
   //return (30.0/(29.0*Index0()));
   return 0.743144825477394244;  // return TMath::Cos(42.0*TMath::Pi()/180.0);
   //return 0.7246376812; // ...chrom1.38

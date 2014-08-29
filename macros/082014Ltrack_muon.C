@@ -15,7 +15,7 @@
   
   // Load Data
   // =========
-   TString filename("/lbne/data2/users/txin/Samples/muplus_1200mev_200kton_10inch_13per_hqe_MuSct.root");
+   TString filename("/lbne/data2/users/txin/Samples/muplus_400mev_200kton_10inch_13per_hqe_MuSct.root");
  
   WCSimInterface::LoadData(filename);
 
@@ -29,7 +29,7 @@
   }
   WCSimDataCleaner::Instance()->SetMinPulseHeight(-1.0);//there's no cut
   WCSimDataCleaner::Instance()->SetNeighbourRadius(300.0); //cm
-  WCSimDataCleaner::Instance()->SetNeighbourDigits(50.0);//number of neighb
+  WCSimDataCleaner::Instance()->SetNeighbourDigits(10.0);//number of neighb
   WCSimDataCleaner::Instance()->SetClusterRadius(300.0);
   WCSimDataCleaner::Instance()->SetClusterDigits(50.0);//at least 50 clusters
   WCSimDataCleaner::Instance()->SetTimeWindowNeighbours(25.0);//ns window
@@ -49,8 +49,8 @@
     double mind = 1500.0;
     double maxd = 5500.0;
   }
-  double mindmu = -200.0;//dist muon
-  double maxdmu = 800.0;
+  double mindmu = -1000.0;//dist muon
+  double maxdmu = 1000.0;
   TH1D* hltrackdata = new TH1D("hltrackdata", ";Ltrack [cm]",100,mindmu,maxdmu);
   TH1D* hltrackdataall = new TH1D("hltrackdataall", ";Ltrack [cm]",100,mindmu,maxdmu);  //Ltrack only
   //TH1D* hltrackdataall = new TH1D("hltrackdataall", ";Oangle [deg]",100,0,60); // Oamgle only
@@ -191,7 +191,7 @@
   Double_t Norm       = 10.0;
   Double_t softcutoff = 350.0;//80 400MeV muon, 500 1.2GeV muon 350 
   Double_t earlysigma = 2.0/sqrt(Norm); // P(l=-20cm)=0.01
-  Double_t earlycut   = -20; //2.0*earlysigma; 
+  Double_t earlycut   = 0; //2.0*earlysigma; 
   Double_t latesigma  = 5.0; latesigma = 25.0/(10.0*sqrt(Norm)); // P(l=525cm)=0.01
   Double_t latecut    = softcutoff+25.0;
   Double_t normF      = 1.0/((earlysigma+latesigma)*(TMath::Pi()/2.0)+softcutoff);
@@ -215,8 +215,8 @@
   
   //**************************
   
-  hltrackdataall->SetTitle("1200 MeV 200 kton muon");
-  hltrackmc->SetTitle("1200 MeV 200 kton muon, PDFA");
+  hltrackdataall->SetTitle("400 MeV 200 kton muon");
+  hltrackmc->SetTitle("400 MeV 200 kton muon, PDFA");
   // hltrackdataall->SetTitle("400 MeV 50 kton muon, PDFC, Biased");
   
   //Oangle only

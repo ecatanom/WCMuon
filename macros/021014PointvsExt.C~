@@ -22,8 +22,8 @@
   //string namefile = "addedFiles_electron_200kton_13percCov_0p25ns";
 
 
-  string namefile="042214_muon400_200kton_13per_025ns_lmuon225";
-
+  //string namefile="042214_muon400_200kt0n_13per_025ns_nrad400";
+  string namefile="082814temp";
 
   Double_t radius = 4202.59; Double_t height = 10412.1/2; //500 kton
   radius = 3112.95; height = 7998.09/2; //200 kton
@@ -128,7 +128,7 @@
   }
   const Int_t nbin = 5000;
   Double_t min = 0.0;
-  Double_t max = 100.0;   //100 for parallell?
+  Double_t max = 1000.0;   //100 for parallell?
   Double_t range = max - min;
   TH1D* testnonh = new TH1D("testnonh","",nbin,min,max);
   TH1D* testconh = new TH1D("testconh","",nbin,min,max);
